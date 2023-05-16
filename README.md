@@ -2,8 +2,10 @@
 <a href="" class="discord-button">Discord webhook spammer</a>
 
 pip install requests
+
 pip install time
-pip install coloroma
+
+pip install colorama
 
 Run start.bat
 
