@@ -1,11 +1,7 @@
 # discord-webhook-spammer
 <a href="" class="discord-button">Discord webhook spammer</a>
 
-pip install requests
-
-pip install time
-
-pip install colorama
+pip install -r requirements.txt
 
 Run start.bat
 
