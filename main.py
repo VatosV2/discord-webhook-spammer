@@ -1,59 +1,33 @@
-import requests            
-import time
-import colorama
+import requests, os
+from colorama import Fore
 
-print("Discord Webhook Spammer by Nexus Tools")
-time.sleep(1)
-print("Loading...")
-time.sleep(1) 
+os.system("cls")
 
-print(f"""{colorama.Fore.LIGHTMAGENTA_EX}
-   ███▄    █ ▓█████ ▒██   ██▒ █    ██   ██████ 
-   ██ ▀█   █ ▓█   ▀ ▒▒ █ █ ▒░ ██  ▓██▒▒██    ▒ 
-  ▓██  ▀█ ██▒▒███   ░░  █   ░▓██  ▒██░░ ▓██▄   
-  ▓██▒  ▐▌██▒▒▓█  ▄  ░ █ █ ▒ ▓▓█  ░██░  ▒   ██▒
-  ▒██░   ▓██░░▒████▒▒██▒ ▒██▒▒▒█████▓ ▒██████▒▒
-  ░ ▒░   ▒ ▒ ░░ ▒░ ░▒▒ ░ ░▓ ░░▒▓▒ ▒ ▒ ▒ ▒▓▒ ▒ ░
- ░  ░░   ░ ▒░ ░ ░  ░░░   ░▒ ░░░▒░ ░ ░ ░ ░▒  ░ ░
-    ░   ░ ░    ░    ░    ░   ░░░ ░ ░ ░  ░  ░  
-          ░    ░  ░ ░    ░     ░           ░  
-          
-          ╘ discord.gg/nexus-tools ╛ 
-            ――――――――――――――――――――――
-            """)
-time.sleep(1)
-
-def send_discord_message(webhook_url, message):
+def send_message(webhook, message):
     payload = {
-        "content": message
+        'content': message,
+        'username': "Nexus Spammer",
+        'avatar_url': "https://cdn.discordapp.com/attachments/1209895707675205653/1209919950689411092/RmDJt7xVhNFTA6yvy3EWfsTbki45EeI67K93h75F_1.png?ex=65fb21c3&is=65e8acc3&hm=a6a6cbe10a14960ebb96ab983a543111b73d4b5344d534b631f9a62b798432f2&"
     }
-
-    response = requests.post(webhook_url, json=payload)
-
+    response = requests.post(webhook, json=payload)
     if response.status_code == 204:
-        print("Message sent successfully")
+        print(f"{Fore.LIGHTGREEN_EX}SUCCSES {Fore.LIGHTWHITE_EX}Message Send! -> {Fore.LIGHTBLACK_EX}({response.status_code})")
     else:
-        print(f"Failed to send message. Error: {response.text}")
+        print(f"{Fore.RED}ERROR {Fore.LIGHTWHITE_EX}FAILED! -> {Fore.LIGHTBLACK_EX}({response.status_code})")
 
-# Prompt the user to enter the webhook URL, message, and frequency option
-webhook_url = input("Enter your Discord webhook URL: ")
-message = input("Enter the message you want to send: ")
+def main():
+    print(f'''{Fore.LIGHTMAGENTA_EX}
+                    ███╗   ██╗███████╗██╗  ██╗██╗   ██╗███████╗   ████████╗ ██████╗  ██████╗ ██╗     ███████╗
+                    ████╗  ██║██╔════╝╚██╗██╔╝██║   ██║██╔════╝   ╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝
+                    ██╔██╗ ██║█████╗   ╚███╔╝ ██║   ██║███████╗█████╗██║   ██║   ██║██║   ██║██║     ███████╗
+                    ██║╚██╗██║██╔══╝   ██╔██╗ ██║   ██║╚════██║╚════╝██║   ██║   ██║██║   ██║██║     ╚════██║
+                    ██║ ╚████║███████╗██╔╝ ██╗╚██████╔╝███████║      ██║   ╚██████╔╝╚██████╔╝███████╗███████║
+                    ╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝      ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝
+                                                discord.gg/nexus-tools
+    ''')
+    webhook = input(f"{Fore.RESET}[{Fore.LIGHTMAGENTA_EX}>{Fore.RESET}] Enter Webhook: ")
+    message = input(f"{Fore.RESET}[{Fore.LIGHTMAGENTA_EX}>{Fore.RESET}] Enter Message To Spam: ")
+    while True:
+        send_message(webhook, message)
 
-# Prompt the user to select the frequency option
-frequency_option = input("Select the sending frequency option (fast / normal / slow): ")
-
-# Set the sending frequency based on the selected option
-if frequency_option == "fast":
-    frequency = 0.01  # Send every 0.001 seconds (faster)
-elif frequency_option == "normal":
-    frequency = 1  # Send every 1 second
-elif frequency_option == "slow":
-    frequency = 5  # Send every 5 seconds
-else:
-    print("Invalid frequency option. Using default frequency (fast).")
-    frequency = 1
-
-# Continuously send the message with the specified frequency
-while True:
-    send_discord_message(webhook_url, message)
-    time.sleep(frequency)
+main()
